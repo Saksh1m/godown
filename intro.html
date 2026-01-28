@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GoDown TextileOS - Enterprise Textile Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div>
+        <span class="pill" id="pill">Enterprise Textile Management</span>
+        <h1 id="hero-title">GoDown TextileOS</h1>
+        <p id="hero-description"></p>
+        <div class="cta-group">
+          <a class="button primary" href="#textile-story">View Textile Story</a>
+          <a class="button secondary" href="#modules">See Modules</a>
+        </div>
+      </div>
+      <div class="card" id="hero-stats" style="min-width: 260px;"></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="modules" class="grid cols-3"></section>
+
+    <section class="grid cols-2">
+      <div class="card">
+        <div class="section-heading">
+          <h2>Batch Control Center</h2>
+          <span class="tag" id="batch-id"></span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="batch-details"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="section-heading">
+          <h2>Real-Time Stock</h2>
+          <span class="tag">Auto-reconciled</span>
+        </div>
+        <div class="grid cols-2" style="margin-top: 16px;" id="stock"></div>
+        <div class="card" style="margin-top: 18px;" id="conversion"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <h2>Process Timeline</h2>
+        <span class="tag">Full Audit Trail</span>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <section id="textile-story" class="story-panel">
+      <div class="story-card">
+        <div class="story-summary">
+          <span class="pill">Textile Story</span>
+          <h3 id="story-title"></h3>
+          <p id="story-overview"></p>
+        </div>
+        <div class="story-metrics" id="story-metrics"></div>
+        <div class="card">
+          <h3>Quality Control Checkpoints</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Stage</th>
+                <th>Status</th>
+                <th>Defects Logged</th>
+                <th>Corrective Action</th>
+              </tr>
+            </thead>
+            <tbody id="qc-table"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="section-heading">
+          <h2>Photo Attachments</h2>
+          <span class="tag">Tagged & Timestamped</span>
+        </div>
+        <div class="photo-grid" style="margin-top: 16px;" id="photo-grid"></div>
+        <div class="card" style="margin-top: 20px;">
+          <h3>Vendor & Job Orders</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Job Order</th>
+                <th>Rate</th>
+                <th>Due Date</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody id="vendor-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    GoDown TextileOS · Designed for enterprise control of women’s ethnic wear fabrics, processes, and vendor ecosystems.
+  </footer>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>
