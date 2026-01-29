@@ -1,0 +1,24 @@
+{
+  "name": "godown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "dev": "vite"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saksh1m/godown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Saksh1m/godown/issues"
+  },
+  
+  "homepage": "https://github.com/Saksh1m/godown#readme",
+  "description": "",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
