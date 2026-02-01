@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paridhi TextileOS - Enterprise Textile Management</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <title id="page-title"></title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
@@ -16,12 +15,12 @@
   <header>
     <div class="brand">
       <div>
-        <span class="pill" id="pill">Enterprise Textile Management</span>
-        <h1 id="hero-title">Paridhi TextileOS</h1>
+        <span class="pill" id="pill"></span>
+        <h1 id="hero-title"></h1>
         <p id="hero-description"></p>
         <div class="cta-group">
-          <a class="button primary" href="#textile-story">View Textile Story</a>
-          <a class="button secondary" href="#modules">See Modules</a>
+          <a class="button primary" id="cta-primary"></a>
+          <a class="button secondary" id="cta-secondary"></a>
         </div>
       </div>
       <div class="card" id="hero-stats" style="min-width: 260px;"></div>
@@ -34,23 +33,18 @@
     <section class="grid cols-2">
       <div class="card">
         <div class="section-heading">
-          <h2>Batch Control Center</h2>
+          <h2 id="batch-title"></h2>
           <span class="tag" id="batch-id"></span>
         </div>
         <table>
-          <thead>
-            <tr>
-              <th>Attribute</th>
-              <th>Details</th>
-            </tr>
-          </thead>
+          <thead id="batch-head"></thead>
           <tbody id="batch-details"></tbody>
         </table>
       </div>
       <div class="card">
         <div class="section-heading">
-          <h2>Real-Time Stock</h2>
-          <span class="tag">Auto-reconciled</span>
+          <h2 id="stock-title"></h2>
+          <span class="tag" id="stock-tag"></span>
         </div>
         <div class="grid cols-2" style="margin-top: 16px;" id="stock"></div>
         <div class="card" style="margin-top: 18px;" id="conversion"></div>
@@ -59,8 +53,8 @@
 
     <section class="card">
       <div class="section-heading">
-        <h2>Process Timeline</h2>
-        <span class="tag">Full Audit Trail</span>
+        <h2 id="timeline-title"></h2>
+        <span class="tag" id="timeline-tag"></span>
       </div>
       <div class="timeline" id="timeline"></div>
     </section>
@@ -68,44 +62,30 @@
     <section id="textile-story" class="story-panel">
       <div class="story-card">
         <div class="story-summary">
-          <span class="pill">Textile Story</span>
+          <span class="pill" id="story-pill"></span>
           <h3 id="story-title"></h3>
           <p id="story-overview"></p>
         </div>
         <div class="story-metrics" id="story-metrics"></div>
+         <div class="story-highlights" id="story-highlights"></div>
         <div class="card">
-          <h3>Quality Control Checkpoints</h3>
+          <h3 id="qc-title"></h3>
           <table>
-            <thead>
-              <tr>
-                <th>Stage</th>
-                <th>Status</th>
-                <th>Defects Logged</th>
-                <th>Corrective Action</th>
-              </tr>
-            </thead>
+            <thead id="qc-head"></thead>
             <tbody id="qc-table"></tbody>
           </table>
         </div>
       </div>
       <div class="card">
         <div class="section-heading">
-          <h2>Photo Attachments</h2>
-          <span class="tag">Tagged & Timestamped</span>
+          <h2 id="photo-title"></h2>
+          <span class="tag" id="photo-tag"></span>
         </div>
         <div class="photo-grid" style="margin-top: 16px;" id="photo-grid"></div>
         <div class="card" style="margin-top: 20px;">
-          <h3>Vendor & Job Orders</h3>
+          <h3 id="vendor-title"></h3>
           <table>
-            <thead>
-              <tr>
-                <th>Vendor</th>
-                <th>Job Order</th>
-                <th>Rate</th>
-                <th>Due Date</th>
-                <th>Payment</th>
-              </tr>
-            </thead>
+            <thead id="vendor-head"></thead>
             <tbody id="vendor-table"></tbody>
           </table>
         </div>
@@ -113,9 +93,7 @@
     </section>
   </main>
 
-  <footer>
-    Paridhi TextileOS · Designed for enterprise control of women’s ethnic wear fabrics, processes, and vendor ecosystems.
-  </footer>
+  <footer id="footer-text"></footer>
 
   <script type="module" src="assets/app.js"></script>
 </body>

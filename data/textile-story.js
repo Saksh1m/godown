@@ -1,133 +1,317 @@
 export const textileBatch = {
+    pageTitle: "Paridhi TextileOS · Enterprise Textile Management",
   summary: {
-    title: "GoDown TextileOS",
+    title: "Paridhi TextileOS",
     subtitle: "Enterprise Textile Management",
     description:
-      "Track every meter of women’s ethnic wear fabrics from procurement to finished product with live stock, vendor coordination, and quality analytics.",
-    batchId: "TW-2024-0958",
+      "Enterprise-grade textile management for Paridhi, tracking every roll from procurement to finished women’s ethnic wear with live stock, vendor workflows, and quality intelligence.",
+    batchId: "PAR-TX-2025-0196",
+  },
+  ctas: {
+    primary: { label: "View Textile Story", href: "#textile-story" },
+    secondary: { label: "Explore Modules", href: "#modules" },
   },
   heroStats: [
-    { label: "Active Batches", value: "128" },
-    { label: "Available Stock", value: "18,460 m" },
-    { label: "Yield Efficiency", value: "93.4%" },
+    { label: "Active Textile Batches", value: "146" },
+    { label: "Live Stock Coverage", value: "21,380 m" },
+    { label: "On-Time Job Work", value: "96%" },
   ],
   modules: [
     {
       title: "Procurement Intake",
       description:
-        "Capture supplier, origin, batch ID, rolls, meterage, storage location, and initial condition in a single intake flow.",
+        "Capture supplier, origin, batch ID, rolls, meterage, storage location, and initial fabric condition at the gate.",
     },
     {
-      title: "Live Stock Ledger",
+      title: "Real-Time Stock Ledger",
       description:
-        "Always know available meters, reserved stock, waste, and damaged fabric with automated reconciliations.",
+        "Monitor available meters, reserved stock, waste, and damaged fabric with continuous reconciliation.",
     },
     {
       title: "Process Timeline",
       description:
-        "Chronological tracking of dyeing, printing, cutting, stitching, finishing, and QC with quantities, losses, and costs.",
+        "Chronological tracking for dyeing, printing, cutting, stitching, finishing, and QC with quantities, losses, and costs.",
     },
     {
       title: "Cutting & Conversion",
       description:
-        "Convert meters to pieces with expected vs actual yields, pattern codes, and discrepancy reasons for every cut batch.",
+        "Convert meters to pieces with expected vs actual yield, pattern references, and variance reasons per cut batch.",
     },
     {
       title: "Vendor & Job Work",
       description:
-        "Manage dyers, tailors, printers, and embroiders with job orders, rates, due dates, delivery status, and payments.",
+        "Manage dyers, printers, tailors, and finishers with job orders, rates, due dates, and payment status.",
     },
     {
       title: "Photo Evidence",
       description:
-        "Upload photos at intake, post-dye, cutting, stitching, and final QC with captions, tags, and timestamps.",
+        "Attach tagged photos to any process step with captions, timestamps, and batch links.",
     },
   ],
-  batchDetails: [
-    { label: "Supplier & Origin", value: "Shakti Mills, Surat · 60s Cotton Cambric" },
-    { label: "Intake Summary", value: "28 rolls · 3,920 meters · Condition: Grade A" },
-    { label: "Storage Location", value: "Warehouse A · Rack C4 · Bin 12" },
-    { label: "Color & Dye", value: "Family: Plum · Shade: PM-214 · Dye Lot: DL-775 · Match: 98%" },
-    { label: "Reservations", value: "1,140 meters reserved for PO #WE-2081" },
-    { label: "Alerts", value: "Pending QC at finishing · 2 rolls marked for re-dye" },
-  ],
-  stock: [
-    { label: "Available Meters", value: "2,210 m" },
-    { label: "Reserved", value: "1,140 m" },
-    { label: "Damaged", value: "120 m" },
-    { label: "Waste & Loss", value: "86 m" },
-  ],
-  conversion: {
-    title: "Cutting Conversion Snapshot",
-    summary: "Expected: 640 kurtas · Actual: 612 kurtas · Discrepancy: 4.4% (print misalignment)",
+  sections: {
+    batchControl: {
+      title: "Batch Control Center",
+      tag: "Unique Batch ID:",
+      columns: ["Attribute", "Details"],
+      details: [
+        {
+          label: "Supplier & Origin",
+          value: "PariTex Weaves, Bhiwandi · 80s Cotton Mulmul",
+        },
+        {
+          label: "Incoming Shipment",
+          value: "32 rolls · 4,480 meters · Received 12 Jan 2025",
+        },
+        {
+          label: "Storage Location",
+          value: "Warehouse B · Aisle 4 · Rack D2 · Bin 09",
+        },
+        {
+          label: "Initial Condition",
+          value: "Grade A · Moisture 7.6% · Visual defects: 3 minor slubs",
+        },
+        {
+          label: "Color & Dye Profile",
+          value: "Family: Maroon · Shade Code: MR-328 · Dye Lot: DL-902 · Match Quality: 98.6%",
+        },
+        {
+          label: "Reservation & Demand",
+          value: "1,520 meters reserved for PO #PAR-WE-514 · 2 styles in plan",
+        },
+        {
+          label: "Compliance & Docs",
+          value: "Supplier COA, shrinkage report, and GSM report attached to batch",
+        },
+      ],
+    },
+    stock: {
+      title: "Real-Time Stock",
+      tag: "Auto-reconciled",
+      stats: [
+        { label: "Available Meters", value: "2,580 m" },
+        { label: "Reserved Stock", value: "1,520 m" },
+        { label: "Damaged", value: "110 m" },
+        { label: "Waste & Loss", value: "86 m" },
+      ],
+      conversion: {
+        title: "Cutting Conversion Snapshot",
+        summary:
+          "Expected output: 680 kurtas · Actual output: 652 kurtas · Variance: 4.1%",
+        details: [
+          "Design: Meher A-line Kurta · Pattern Code: PAR-AL-11",
+          "Marker efficiency: 84% · Fabric shrinkage allowance: 1.8%",
+          "Discrepancy reason: dye shade variation on 24 meters",
+          "Corrective action: re-layout for panels and supplier claim logged",
+        ],
+      },
+    },
+    timeline: {
+      title: "Process Timeline",
+      tag: "Full Audit Trail",
+      entries: [
+        {
+          code: "IN",
+          tone: "primary",
+          title: "Intake & Inspection · 12 Jan 2025",
+          points: [
+            "Received 4,480 meters from PariTex Weaves · GRN #GRN-1186",
+            "Inspection: 3 minor slubs · Defects logged in QC-RAW-22",
+            "Initial cost: ₹112/m · Storage assigned to Warehouse B",
+          ],
+        },
+        {
+          code: "DY",
+          tone: "mint",
+          title: "Sent to Dyer · 16 Jan 2025",
+          points: [
+            "Vendor: Rangshree Dyers · Job Order JO-984 · 4,200 meters dispatched",
+            "Expected return: 4,140 meters after shrinkage · Target match 98%+",
+            "Rate: ₹46/m · Transport cost: ₹8,400",
+          ],
+        },
+        {
+          code: "RD",
+          tone: "accent",
+          title: "Received from Dyer · 23 Jan 2025",
+          points: [
+            "4,120 meters received · Loss: 80 meters (shade correction)",
+            "Match quality achieved: 98.6% · Dye lot DL-902 confirmed",
+            "Payment status: 50% released · Balance due after rework",
+          ],
+        },
+        {
+          code: "PR",
+          tone: "rose",
+          title: "Printing & Embellishment · 27 Jan 2025",
+          points: [
+            "Vendor: KalaPrint Studio · Job Order JO-1014 · 3,980 meters sent",
+            "Process: block print + foil accents · Expected return: 3,920 meters",
+            "Cost: ₹22/m · Rejection threshold: 2% max",
+          ],
+        },
+        {
+          code: "CT",
+          tone: "primary",
+          title: "Cutting & Bundling · 02 Feb 2025",
+          points: [
+            "Pattern: Meher A-line · Marker efficiency 84%",
+            "Expected pieces: 680 · Actual pieces: 652",
+            "Discrepancy: print misalignment on 24 meters",
+          ],
+        },
+        {
+          code: "ST",
+          tone: "mint",
+          title: "Stitching & Finishing · 10 Feb 2025",
+          points: [
+            "Vendor: Asha Tailors · Job Order JO-1098 · 652 pieces issued",
+            "Finishing loss: 11 pieces (needle marks) · Rework in progress",
+            "Rate: ₹110/piece · Due date: 18 Feb 2025",
+          ],
+        },
+      ],
+    },
+    story: {
+      pill: "Textile Story",
+      title: "PAR-TX-2025-0196 · Maroon Mulmul",
+      overview:
+        "This batch moved through 5 vendors and 4 QC gates, delivering a 95.9% yield for Paridhi’s winter kurta line. Every step—from intake to finishing—is logged with quantities, costs, and evidence.",
+      metrics: [
+        { tag: "Yield", value: "95.9%", caption: "After cutting & finishing" },
+        { tag: "Cost", value: "₹7.1L", caption: "Total batch spend" },
+        { tag: "Timeline", value: "29 days", caption: "Procurement to finish" },
+        { tag: "QC", value: "Pass", caption: "Last checkpoint" },
+      ],
+      highlightsTitle: "Textile Story Highlights",
+      highlights: [
+        "Origin: Bhiwandi mills with compliance docs attached at intake",
+        "Process history covers dyeing, printing, cutting, stitching, and finishing",
+        "Current stock: 2,580 meters available with live reservation sync",
+        "Yield analysis captured against expected pieces and variance reasons",
+        "Photo evidence linked to every process step and QC checkpoint",
+      ],
+    },
+    quality: {
+      title: "Quality Control Checkpoints",
+      columns: ["Stage", "Status", "Defects Logged", "Corrective Action"],
+      checkpoints: [
+        {
+          stage: "Raw Fabric",
+          status: "Pass",
+          defects: "3 minor slubs",
+          action: "End-cut and tagged for recheck",
+        },
+        {
+          stage: "Post Dye",
+          status: "Pass",
+          defects: "Shade variance within tolerance",
+          action: "Approved for printing",
+        },
+        {
+          stage: "Post Print",
+          status: "Conditional",
+          defects: "2% foil smudge",
+          action: "Rework panels before cutting",
+        },
+        {
+          stage: "Final Finish",
+          status: "Pass",
+          defects: "None",
+          action: "Ready for packing and dispatch",
+        },
+      ],
+    },
+    photos: {
+      title: "Photo Attachments",
+      tag: "Tagged & Timestamped",
+      items: [
+        {
+          title: "Raw Fabric Intake",
+          caption: "Roll labels and initial defects captured at dock inspection.",
+          meta: [
+            "Batch: PAR-TX-2025-0196",
+            "Stage: Intake & Inspection",
+            "Timestamp: 12 Jan 2025 · 10:42 IST",
+            "Tags: roll label, defects, moisture",
+          ],
+        },
+        {
+          title: "Post Dye Shade Match",
+          caption: "Dye lot verification with match card and shade approval.",
+          meta: [
+            "Batch: PAR-TX-2025-0196",
+            "Stage: Dyeing Return",
+            "Timestamp: 23 Jan 2025 · 17:05 IST",
+            "Tags: dye lot DL-902, shade match",
+          ],
+        },
+        {
+          title: "Printing Preview",
+          caption: "Block print alignment and foil accents review before cutting.",
+          meta: [
+            "Batch: PAR-TX-2025-0196",
+            "Stage: Printing",
+            "Timestamp: 27 Jan 2025 · 15:12 IST",
+            "Tags: block print, foil, alignment",
+          ],
+        },
+        {
+          title: "Cutting Layout",
+          caption: "Marker layout with piece count verification on cutting floor.",
+          meta: [
+            "Batch: PAR-TX-2025-0196",
+            "Stage: Cutting & Bundling",
+            "Timestamp: 02 Feb 2025 · 12:26 IST",
+            "Tags: marker efficiency, yield",
+          ],
+        },
+        {
+          title: "Final QC",
+          caption: "Finished kurtas checked for stitch quality and finishing.",
+          meta: [
+            "Batch: PAR-TX-2025-0196",
+            "Stage: Final QC",
+            "Timestamp: 18 Feb 2025 · 18:08 IST",
+            "Tags: finishing, stitch quality",
+          ],
+        },
+      ],
+    },
+    vendors: {
+      title: "Vendor & Job Orders",
+      columns: ["Vendor", "Job Work", "Rate", "Due Date", "Payment Status"],
+      items: [
+        {
+          vendor: "Rangshree Dyers",
+          work: "Dyeing · JO-984",
+          rate: "₹46/m",
+          due: "23 Jan 2025",
+          payment: "50% paid",
+        },
+        {
+          vendor: "KalaPrint Studio",
+          work: "Printing · JO-1014",
+          rate: "₹22/m",
+          due: "29 Jan 2025",
+          payment: "Pending",
+        },
+        {
+          vendor: "Asha Tailors",
+          work: "Stitching · JO-1098",
+          rate: "₹110/piece",
+          due: "18 Feb 2025",
+          payment: "Scheduled",
+        },
+        {
+          vendor: "Vastra Finishers",
+          work: "Finishing · JO-1122",
+          rate: "₹14/piece",
+          due: "20 Feb 2025",
+          payment: "On hold",
+        },
+      ],
+    },
   },
-  timeline: [
-    {
-      code: "IN",
-      tone: "primary",
-      title: "Intake & Inspection · 02 Aug 2024",
-      points: [
-        "Received 3,920 meters · Initial moisture 8% · Supplier COA attached",
-        "QC result: 2 minor defects logged · Corrective action: end-cut rework",
-        "Photo set: raw fabric, roll labels, yardage counter",
-      ],
-    },
-    {
-      code: "DY",
-      tone: "mint",
-      title: "Sent to Dyer · 06 Aug 2024",
-      points: [
-        "Vendor: Rangshree Dyers · Job Order JO-772 · 3,600 meters dispatched",
-        "Cost: ₹48/m · Expected return: 3,560 meters after shrinkage",
-        "Dye lot DL-775 · Match quality target 97%+",
-      ],
-    },
-    {
-      code: "RD",
-      tone: "accent",
-      title: "Received from Dyer · 14 Aug 2024",
-      points: [
-        "3,540 meters received · 60 meters loss · Loss reason: shade correction",
-        "QC: match quality 98% · Defects logged: 4 smudged panels",
-        "Payment status: 60% released · Balance due on rework completion",
-      ],
-    },
-    {
-      code: "CT",
-      tone: "rose",
-      title: "Cutting & Bundling · 19 Aug 2024",
-      points: [
-        "Pattern: Gulbahar A-line · Marker efficiency 83%",
-        "Expected pieces: 640 · Actual pieces: 612",
-        "Discrepancy reason: print misalignment on 22 meters",
-      ],
-    },
-  ],
-  story: {
-    title: "TW-2024-0958 · Plum Cambric",
-    overview:
-      "From Surat procurement to finished kurtas, this batch travelled across 4 vendors, passed 3 QC gates, and delivered a 93.4% yield. All photos, documents, and costs are linked to each step for instant audits.",
-    metrics: [
-      { tag: "Yield", value: "93.4%", caption: "Efficiency after cutting" },
-      { tag: "Cost", value: "₹6.2L", caption: "Total batch spend" },
-      { tag: "Timeline", value: "26 days", caption: "Procurement to finish" },
-      { tag: "QC", value: "Pass", caption: "Last checkpoint" },
-    ],
-  },
-  qc: [
-    { stage: "Raw Fabric", status: "Pass", defects: "2 minor snags", action: "End-cut & marked" },
-    { stage: "Post Dye", status: "Conditional", defects: "4 smudged panels", action: "Re-dye scheduled" },
-    { stage: "Finishing", status: "Pass", defects: "None", action: "Ready to dispatch" },
-  ],
-  photos: [
-    { title: "Raw Fabric Intake", meta: "02 Aug 2024 · Tags: roll label, defects" },
-    { title: "Post Dye Shade Match", meta: "14 Aug 2024 · Tags: dye lot DL-775" },
-    { title: "Cutting Layout", meta: "19 Aug 2024 · Tags: marker efficiency" },
-    { title: "Final QC", meta: "28 Aug 2024 · Tags: finish, accessories" },
-  ],
-  vendors: [
-    { vendor: "Rangshree Dyers", order: "JO-772", rate: "₹48/m", due: "14 Aug 2024", payment: "60% paid" },
-    { vendor: "Kalini Printers", order: "JO-801", rate: "₹18/m", due: "22 Aug 2024", payment: "Pending" },
-    { vendor: "Asha Tailors", order: "JO-846", rate: "₹95/piece", due: "30 Aug 2024", payment: "Scheduled" },
-  ],
+  footer:
+    "Paridhi TextileOS · Enterprise control for women’s ethnic wear fabric lifecycle, vendor performance, and quality excellence.",
 };

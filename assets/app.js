@@ -49,6 +49,16 @@ const createTableRow = (cells) => {
   return row;
 };
 
+const createTableHeader = (columns) => {
+  const row = document.createElement("tr");
+  columns.forEach((column) => {
+    const th = document.createElement("th");
+    th.textContent = column;
+    row.append(th);
+  });
+  return row;
+};
+
 const createTimelineItem = ({ code, tone, title, points }) => {
   const wrapper = document.createElement("div");
   wrapper.className = "timeline-item";
@@ -86,27 +96,40 @@ const createStoryMetric = ({ tag, value, caption }) => {
   return card;
 };
 
-const createPhotoCard = ({ title, meta }) => {
+const createPhotoCard = ({ title, caption, meta }) => {
   const card = document.createElement("div");
   card.className = "photo";
   const name = document.createElement("span");
   name.textContent = title;
-  const info = document.createElement("small");
-  info.textContent = meta;
-  card.append(name, info);
+   const captionEl = document.createElement("p");
+  captionEl.textContent = caption;
+  const list = document.createElement("ul");
+  list.className = "meta-list";
+  meta.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.append(li);
+  });
+  card.append(name, captionEl, list);
   return card;
 };
 
 const renderHero = () => {
-  const { summary, heroStats } = textileBatch;
+  const { summary, heroStats, ctas } = textileBatch;
   const heroDescription = document.getElementById("hero-description");
   const heroStatsEl = document.getElementById("hero-stats");
   const heroTitle = document.getElementById("hero-title");
   const pill = document.getElementById("pill");
-
+  const ctaPrimary = document.getElementById("cta-primary");
+  const ctaSecondary = document.getElementById("cta-secondary");
+  
   heroTitle.textContent = summary.title;
   heroDescription.textContent = summary.description;
   pill.textContent = summary.subtitle;
+  ctaPrimary.textContent = ctas.primary.label;
+  ctaPrimary.href = ctas.primary.href;
+  ctaSecondary.textContent = ctas.secondary.label;
+  ctaSecondary.href = ctas.secondary.href;
 
   heroStatsEl.innerHTML = "";
   heroStats.forEach((stat, index) => {
@@ -118,6 +141,10 @@ const renderHero = () => {
   });
 };
 
+const renderPageTitle = () => {
+  document.title = textileBatch.pageTitle;
+};
+  
 const renderModules = () => {
   const container = document.getElementById("modules");
   textileBatch.modules.forEach((module) => {
@@ -126,69 +153,137 @@ const renderModules = () => {
 };
 
 const renderBatchDetails = () => {
+  const { batchControl } = textileBatch.sections;
   const details = document.getElementById("batch-details");
   const batchId = document.getElementById("batch-id");
-  batchId.textContent = `Unique Batch ID: ${textileBatch.summary.batchId}`;
-
-  textileBatch.batchDetails.forEach((detail) => {
+  const batchHead = document.getElementById("batch-head");
+  const batchTitle = document.getElementById("batch-title");
+  batchTitle.textContent = batchControl.title;
+  batchId.textContent = `${batchControl.tag} ${textileBatch.summary.batchId}`;
+  batchHead.innerHTML = "";
+  batchHead.append(createTableHeader(batchControl.columns));
+  details.innerHTML = "";
+  batchControl.details.forEach((detail) => {
     details.append(createTableRow([detail.label, detail.value]));
   });
 };
 
 const renderStock = () => {
-  const stock = document.getElementById("stock");
-  textileBatch.stock.forEach((item) => {
+  const { stock: stockData } = textileBatch.sections;
+  const stockGrid = document.getElementById("stock");
+  const stockTitle = document.getElementById("stock-title");
+  const stockTag = document.getElementById("stock-tag");
+  stockTitle.textContent = stockData.title;
+  stockTag.textContent = stockData.tag;
+  stockGrid.innerHTML = "";
+  stockData.stats.forEach((item) => {
     const stat = createStat(item);
-    stock.append(createCard(stat));
+    stockGrid.append(createCard(stat));
   });
 
   const conversion = document.getElementById("conversion");
+  conversion.innerHTML = "";
   const heading = document.createElement("h3");
-  heading.textContent = textileBatch.conversion.title;
+  heading.textContent = stockData.conversion.title;
   const summary = document.createElement("p");
-  summary.textContent = textileBatch.conversion.summary;
-  conversion.append(heading, summary);
+  summary.textContent = stockData.conversion.summary;
+  const list = document.createElement("ul");
+  list.className = "detail-list";
+  stockData.conversion.details.forEach((detail) => {
+    const item = document.createElement("li");
+    item.textContent = detail;
+    list.append(item);
+  });
+  conversion.append(heading, summary, list);
 };
 
 const renderTimeline = () => {
   const timeline = document.getElementById("timeline");
-  textileBatch.timeline.forEach((entry) => {
+  const { timeline: timelineData } = textileBatch.sections;
+  const timelineTitle = document.getElementById("timeline-title");
+  const timelineTag = document.getElementById("timeline-tag");
+  timelineTitle.textContent = timelineData.title;
+  timelineTag.textContent = timelineData.tag;
+  timeline.innerHTML = "";
+  timelineData.entries.forEach((entry) => {
     timeline.append(createTimelineItem(entry));
   });
 };
 
 const renderStory = () => {
-  document.getElementById("story-title").textContent = textileBatch.story.title;
-  document.getElementById("story-overview").textContent = textileBatch.story.overview;
+  const { story } = textileBatch.sections;
+  document.getElementById("story-title").textContent = story.title;
+  document.getElementById("story-overview").textContent = story.overview;
+  document.getElementById("story-pill").textContent = story.pill;
 
   const metrics = document.getElementById("story-metrics");
-  textileBatch.story.metrics.forEach((metric) => {
+  metrics.innerHTML = "";
+  story.metrics.forEach((metric) => {
     metrics.append(createStoryMetric(metric));
   });
+
+  const highlights = document.getElementById("story-highlights");
+  highlights.innerHTML = "";
+  const heading = document.createElement("h4");
+  heading.textContent = story.highlightsTitle;
+  const list = document.createElement("ul");
+  list.className = "detail-list";
+  story.highlights.forEach((highlight) => {
+    const item = document.createElement("li");
+    item.textContent = highlight;
+    list.append(item);
+  });
+  highlights.append(heading, list);
 };
 
 const renderQuality = () => {
+  const { quality } = textileBatch.sections;
   const qcTable = document.getElementById("qc-table");
-  textileBatch.qc.forEach((item) => {
+  const qcHead = document.getElementById("qc-head");
+  const qcTitle = document.getElementById("qc-title");
+  qcTitle.textContent = quality.title;
+  qcHead.innerHTML = "";
+  qcHead.append(createTableHeader(quality.columns));
+  qcTable.innerHTML = "";
+  quality.checkpoints.forEach((item) => {
     qcTable.append(createTableRow([item.stage, item.status, item.defects, item.action]));
   });
 };
 
 const renderPhotos = () => {
+  const { photos } = textileBatch.sections;
   const grid = document.getElementById("photo-grid");
-  textileBatch.photos.forEach((photo) => {
+  const photoTitle = document.getElementById("photo-title");
+  const photoTag = document.getElementById("photo-tag");
+  photoTitle.textContent = photos.title;
+  photoTag.textContent = photos.tag;
+  grid.innerHTML = "";
+  photos.items.forEach((photo) => {
     grid.append(createPhotoCard(photo));
   });
 };
 
 const renderVendors = () => {
+  const { vendors } = textileBatch.sections;
   const table = document.getElementById("vendor-table");
-  textileBatch.vendors.forEach((vendor) => {
-    table.append(createTableRow([vendor.vendor, vendor.order, vendor.rate, vendor.due, vendor.payment]));
+  const vendorHead = document.getElementById("vendor-head");
+  const vendorTitle = document.getElementById("vendor-title");
+  vendorTitle.textContent = vendors.title;
+  vendorHead.innerHTML = "";
+  vendorHead.append(createTableHeader(vendors.columns));
+  table.innerHTML = "";
+  vendors.items.forEach((vendor) => {
+    table.append(createTableRow([vendor.vendor, vendor.work, vendor.rate, vendor.due, vendor.payment]));
   });
 };
 
+const renderFooter = () => {
+  const footer = document.getElementById("footer-text");
+  footer.textContent = textileBatch.footer;
+};
+
 const initializeTextileStory = () => {
+  renderPageTitle();
   renderHero();
   renderModules();
   renderBatchDetails();
@@ -198,6 +293,7 @@ const initializeTextileStory = () => {
   renderQuality();
   renderPhotos();
   renderVendors();
+  renderFooter();
 };
 
 initializeTextileStory();

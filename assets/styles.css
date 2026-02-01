@@ -263,6 +263,20 @@ main {
   background: var(--white);
 }
 
+.story-highlights h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.detail-list,
+.meta-list {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  color: var(--ash);
+  font-size: 0.9rem;
+}
+
 .photo-grid {
   display: grid;
   gap: 16px;
@@ -282,6 +296,11 @@ main {
 .photo span {
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.photo p {
+  color: var(--ash);
+  font-size: 0.85rem;
 }
 
 .photo small {
