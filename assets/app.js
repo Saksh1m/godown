@@ -1,4 +1,6 @@
-import { textileBatch } from "../data/textile-story.js";
+import { fetchTextileBatch } from "../data/textile-story.js";
+
+let textileBatch;
 
 const iconToneClass = (tone) => {
   const mapping = {
@@ -122,7 +124,7 @@ const renderHero = () => {
   const pill = document.getElementById("pill");
   const ctaPrimary = document.getElementById("cta-primary");
   const ctaSecondary = document.getElementById("cta-secondary");
-  
+
   heroTitle.textContent = summary.title;
   heroDescription.textContent = summary.description;
   pill.textContent = summary.subtitle;
@@ -144,7 +146,7 @@ const renderHero = () => {
 const renderPageTitle = () => {
   document.title = textileBatch.pageTitle;
 };
-  
+
 const renderModules = () => {
   const container = document.getElementById("modules");
   textileBatch.modules.forEach((module) => {
@@ -282,18 +284,27 @@ const renderFooter = () => {
   footer.textContent = textileBatch.footer;
 };
 
-const initializeTextileStory = () => {
-  renderPageTitle();
-  renderHero();
-  renderModules();
-  renderBatchDetails();
-  renderStock();
-  renderTimeline();
-  renderStory();
-  renderQuality();
-  renderPhotos();
-  renderVendors();
-  renderFooter();
+const initializeTextileStory = async () => {
+  try {
+    textileBatch = await fetchTextileBatch("PAR-TX-2025-0196");
+    renderPageTitle();
+    renderHero();
+    renderModules();
+    renderBatchDetails();
+    renderStock();
+    renderTimeline();
+    renderStory();
+    renderQuality();
+    renderPhotos();
+    renderVendors();
+    renderFooter();
+  } catch (err) {
+    console.error("Failed to load textile batch:", err);
+    document.body.innerHTML = `<div style="padding:2rem;text-align:center;color:#666;">
+      <h2>Failed to load data</h2>
+      <p>${err.message}</p>
+    </div>`;
+  }
 };
 
 initializeTextileStory();
