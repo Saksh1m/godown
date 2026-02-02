@@ -1,0 +1,3 @@
+// Replace these with your Supabase project credentials
+export const SUPABASE_URL = "https://zgapnlpegfpsihyvdphp.supabase.co";
+export const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnYXBubHBlZ2Zwc2loeXZkcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAwNDA5MzgsImV4cCI6MjA4NTYxNjkzOH0.zoAnhgUkP2TylqCdXmpdrhadk-db_X6Ou0dSxqflKB0";
