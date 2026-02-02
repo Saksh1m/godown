@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add New Batch · Paridhi TextileOS</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div>
+        <span class="pill">New Batch</span>
+        <h1>Add Textile Batch</h1>
+        <p>Fill in the details below to create a new textile batch record.</p>
+        <div class="cta-group">
+          <a class="button secondary" href="index.html">&larr; Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <form id="batch-form">
+
+      <!-- Batch Info -->
+      <section class="card">
+        <h2>Batch Info</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="batch_id">Batch ID</label>
+            <input type="text" id="batch_id" name="batch_id" required placeholder="PAR-TX-2025-0197" />
+          </div>
+          <div class="form-group">
+            <label for="page_title">Page Title</label>
+            <input type="text" id="page_title" name="page_title" required placeholder="Paridhi TextileOS · Enterprise Textile Management" />
+          </div>
+          <div class="form-group">
+            <label for="summary_title">Summary Title</label>
+            <input type="text" id="summary_title" name="summary_title" required placeholder="Paridhi TextileOS" />
+          </div>
+          <div class="form-group">
+            <label for="summary_subtitle">Subtitle</label>
+            <input type="text" id="summary_subtitle" name="summary_subtitle" placeholder="Enterprise Textile Management" />
+          </div>
+          <div class="form-group full-width">
+            <label for="summary_description">Description</label>
+            <textarea id="summary_description" name="summary_description" rows="3" placeholder="Enterprise-grade textile management..."></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label for="footer">Footer Text</label>
+            <input type="text" id="footer" name="footer" placeholder="Paridhi TextileOS · Enterprise control..." />
+          </div>
+        </div>
+      </section>
+
+      <!-- CTAs -->
+      <section class="card">
+        <h2>Call-to-Action Buttons</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cta_primary_label">Primary Label</label>
+            <input type="text" id="cta_primary_label" placeholder="View Textile Story" />
+          </div>
+          <div class="form-group">
+            <label for="cta_primary_href">Primary Link</label>
+            <input type="text" id="cta_primary_href" placeholder="#textile-story" />
+          </div>
+          <div class="form-group">
+            <label for="cta_secondary_label">Secondary Label</label>
+            <input type="text" id="cta_secondary_label" placeholder="Explore Modules" />
+          </div>
+          <div class="form-group">
+            <label for="cta_secondary_href">Secondary Link</label>
+            <input type="text" id="cta_secondary_href" placeholder="#modules" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Hero Stats -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Hero Stats</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="hero-stats-rows">+ Add Stat</button>
+        </div>
+        <div id="hero-stats-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Label (e.g. Active Batches)" class="hero-stat-label" />
+            <input type="text" placeholder="Value (e.g. 146)" class="hero-stat-value" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modules -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Modules</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="modules-rows">+ Add Module</button>
+        </div>
+        <div id="modules-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Title" class="module-title" />
+            <input type="text" placeholder="Description" class="module-desc" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Batch Details -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Batch Details</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="details-rows">+ Add Detail</button>
+        </div>
+        <div id="details-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Attribute (e.g. Supplier & Origin)" class="detail-label" />
+            <input type="text" placeholder="Value" class="detail-value" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stock -->
+      <section class="card">
+        <h2>Stock</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="stock_title">Title</label>
+            <input type="text" id="stock_title" placeholder="Real-Time Stock" />
+          </div>
+          <div class="form-group">
+            <label for="stock_tag">Tag</label>
+            <input type="text" id="stock_tag" placeholder="Auto-reconciled" />
+          </div>
+        </div>
+        <h3 style="margin-top:16px;">Stock Stats</h3>
+        <div class="section-heading" style="margin-top:8px;">
+          <span></span>
+          <button type="button" class="button secondary add-row-btn" data-target="stock-stats-rows">+ Add Stat</button>
+        </div>
+        <div id="stock-stats-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Label" class="stock-stat-label" />
+            <input type="text" placeholder="Value" class="stock-stat-value" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+        <h3 style="margin-top:16px;">Conversion Snapshot</h3>
+        <div class="form-grid" style="margin-top:8px;">
+          <div class="form-group">
+            <label for="conv_title">Conversion Title</label>
+            <input type="text" id="conv_title" placeholder="Cutting Conversion Snapshot" />
+          </div>
+          <div class="form-group full-width">
+            <label for="conv_summary">Conversion Summary</label>
+            <input type="text" id="conv_summary" placeholder="Expected output: 680 kurtas · Actual: 652" />
+          </div>
+        </div>
+        <div class="section-heading" style="margin-top:8px;">
+          <span></span>
+          <button type="button" class="button secondary add-row-btn" data-target="conv-details-rows">+ Add Detail</button>
+        </div>
+        <div id="conv-details-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Detail line" class="conv-detail" style="flex:1;" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Timeline Entries</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="timeline-rows">+ Add Entry</button>
+        </div>
+        <div id="timeline-rows" class="repeatable-section">
+          <div class="repeatable-row timeline-row">
+            <input type="text" placeholder="Code (e.g. IN)" class="tl-code" style="width:60px;" />
+            <select class="tl-tone">
+              <option value="primary">Primary</option>
+              <option value="mint">Mint</option>
+              <option value="accent">Accent</option>
+              <option value="rose">Rose</option>
+            </select>
+            <input type="text" placeholder="Title (e.g. Intake · 12 Jan 2025)" class="tl-title" style="flex:1;" />
+            <button type="button" class="remove-row-btn">&times;</button>
+            <div class="tl-points-wrap full-width">
+              <div class="tl-points">
+                <input type="text" placeholder="Point" class="tl-point" />
+              </div>
+              <button type="button" class="button secondary add-point-btn" style="margin-top:6px;font-size:0.8rem;padding:6px 10px;">+ Point</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Story -->
+      <section class="card">
+        <h2>Textile Story</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="story_pill">Pill Label</label>
+            <input type="text" id="story_pill" placeholder="Textile Story" />
+          </div>
+          <div class="form-group">
+            <label for="story_title">Title</label>
+            <input type="text" id="story_title" placeholder="PAR-TX-2025-0196 · Maroon Mulmul" />
+          </div>
+          <div class="form-group full-width">
+            <label for="story_overview">Overview</label>
+            <textarea id="story_overview" rows="3" placeholder="This batch moved through 5 vendors..."></textarea>
+          </div>
+        </div>
+        <h3 style="margin-top:16px;">Story Metrics</h3>
+        <div class="section-heading" style="margin-top:8px;">
+          <span></span>
+          <button type="button" class="button secondary add-row-btn" data-target="story-metrics-rows">+ Add Metric</button>
+        </div>
+        <div id="story-metrics-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Tag (e.g. Yield)" class="sm-tag" />
+            <input type="text" placeholder="Value (e.g. 95.9%)" class="sm-value" />
+            <input type="text" placeholder="Caption" class="sm-caption" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-top:16px;">
+          <div class="form-group">
+            <label for="highlights_title">Highlights Title</label>
+            <input type="text" id="highlights_title" placeholder="Textile Story Highlights" />
+          </div>
+        </div>
+        <div class="section-heading" style="margin-top:8px;">
+          <span></span>
+          <button type="button" class="button secondary add-row-btn" data-target="highlights-rows">+ Add Highlight</button>
+        </div>
+        <div id="highlights-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Highlight text" class="highlight-text" style="flex:1;" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quality Checkpoints -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Quality Checkpoints</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="qc-rows">+ Add Checkpoint</button>
+        </div>
+        <div id="qc-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Stage" class="qc-stage" />
+            <input type="text" placeholder="Status" class="qc-status" />
+            <input type="text" placeholder="Defects" class="qc-defects" />
+            <input type="text" placeholder="Action" class="qc-action" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Photos -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Photos</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="photo-rows">+ Add Photo</button>
+        </div>
+        <div id="photo-rows" class="repeatable-section">
+          <div class="repeatable-row photo-row">
+            <input type="text" placeholder="Title" class="photo-title" />
+            <input type="text" placeholder="Caption" class="photo-caption" />
+            <button type="button" class="remove-row-btn">&times;</button>
+            <div class="photo-meta-wrap full-width">
+              <div class="photo-metas">
+                <input type="text" placeholder="Meta line" class="photo-meta" />
+              </div>
+              <button type="button" class="button secondary add-meta-btn" style="margin-top:6px;font-size:0.8rem;padding:6px 10px;">+ Meta</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vendors -->
+      <section class="card">
+        <div class="section-heading">
+          <h2>Vendors</h2>
+          <button type="button" class="button secondary add-row-btn" data-target="vendor-rows">+ Add Vendor</button>
+        </div>
+        <div id="vendor-rows" class="repeatable-section">
+          <div class="repeatable-row">
+            <input type="text" placeholder="Vendor name" class="v-vendor" />
+            <input type="text" placeholder="Job work" class="v-work" />
+            <input type="text" placeholder="Rate" class="v-rate" />
+            <input type="text" placeholder="Due date" class="v-due" />
+            <input type="text" placeholder="Payment status" class="v-payment" />
+            <button type="button" class="remove-row-btn">&times;</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="submit" class="button primary">Submit Batch</button>
+        <span id="form-status"></span>
+      </div>
+    </form>
+  </main>
+
+  <footer>Paridhi TextileOS · Add New Batch</footer>
+
+  <script type="module" src="assets/add.js"></script>
+</body>
+</html>

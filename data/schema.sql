@@ -110,3 +110,14 @@ CREATE POLICY "Allow anonymous read" ON story FOR SELECT USING (true);
 CREATE POLICY "Allow anonymous read" ON quality_checkpoints FOR SELECT USING (true);
 CREATE POLICY "Allow anonymous read" ON photos FOR SELECT USING (true);
 CREATE POLICY "Allow anonymous read" ON vendors FOR SELECT USING (true);
+
+-- Allow anonymous inserts
+CREATE POLICY "Allow anonymous insert" ON batches FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON modules FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON batch_details FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON stock FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON timeline_entries FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON story FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON quality_checkpoints FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON photos FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow anonymous insert" ON vendors FOR INSERT WITH CHECK (true);
