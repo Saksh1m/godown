@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="page-title"></title>
+  <title>Paridhi Textile</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+  <nav>
+    <a href="index.html" class="active">Dashboard</a>
+    <a href="entry.html">New Entry</a>
+    <a href="inventory.html">Inventory</a>
+  </nav>
+
   <header>
     <div class="brand">
       <div>
-        <span class="pill" id="pill"></span>
-        <h1 id="hero-title"></h1>
-        <p id="hero-description"></p>
+        <span class="pill">Textile Management</span>
+        <h1>Paridhi Textile</h1>
+        <p>Track raw materials from entry to finished product. Full traceability for every meter of fabric.</p>
         <div class="cta-group">
-          <a class="button primary" id="cta-primary"></a>
-          <a class="button secondary" id="cta-secondary"></a>
-          <a class="button secondary" href="add.html">+ Add New Batch</a>
+          <a class="button primary" href="entry.html">+ New Entry</a>
+          <a class="button secondary" href="inventory.html">View Inventory</a>
         </div>
       </div>
       <div class="card" id="hero-stats" style="min-width: 260px;"></div>
@@ -29,73 +31,43 @@
   </header>
 
   <main>
-    <section id="modules" class="grid cols-3"></section>
+    <!-- Summary Cards -->
+    <section id="summary-cards" class="grid cols-3"></section>
 
-    <section class="grid cols-2">
-      <div class="card">
-        <div class="section-heading">
-          <h2 id="batch-title"></h2>
-          <span class="tag" id="batch-id"></span>
-        </div>
-        <table>
-          <thead id="batch-head"></thead>
-          <tbody id="batch-details"></tbody>
-        </table>
-      </div>
-      <div class="card">
-        <div class="section-heading">
-          <h2 id="stock-title"></h2>
-          <span class="tag" id="stock-tag"></span>
-        </div>
-        <div class="grid cols-2" style="margin-top: 16px;" id="stock"></div>
-        <div class="card" style="margin-top: 18px;" id="conversion"></div>
-      </div>
-    </section>
-
+    <!-- Production History -->
     <section class="card">
       <div class="section-heading">
-        <h2 id="timeline-title"></h2>
-        <span class="tag" id="timeline-tag"></span>
+        <h2>Production History</h2>
+        <span class="tag" id="history-count"></span>
       </div>
-      <div class="timeline" id="timeline"></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>Type</th>
+              <th>Date</th>
+              <th>Details</th>
+              <th>Parent</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
     </section>
 
-    <section id="textile-story" class="story-panel">
-      <div class="story-card">
-        <div class="story-summary">
-          <span class="pill" id="story-pill"></span>
-          <h3 id="story-title"></h3>
-          <p id="story-overview"></p>
-        </div>
-        <div class="story-metrics" id="story-metrics"></div>
-         <div class="story-highlights" id="story-highlights"></div>
-        <div class="card">
-          <h3 id="qc-title"></h3>
-          <table>
-            <thead id="qc-head"></thead>
-            <tbody id="qc-table"></tbody>
-          </table>
-        </div>
+    <!-- Batch Lineage -->
+    <section class="card">
+      <div class="section-heading">
+        <h2>Batch Lineage</h2>
+        <span class="tag">Full Traceability</span>
       </div>
-      <div class="card">
-        <div class="section-heading">
-          <h2 id="photo-title"></h2>
-          <span class="tag" id="photo-tag"></span>
-        </div>
-        <div class="photo-grid" style="margin-top: 16px;" id="photo-grid"></div>
-        <div class="card" style="margin-top: 20px;">
-          <h3 id="vendor-title"></h3>
-          <table>
-            <thead id="vendor-head"></thead>
-            <tbody id="vendor-table"></tbody>
-          </table>
-        </div>
-      </div>
+      <div id="lineage-container" style="margin-top:16px;"></div>
     </section>
   </main>
 
-  <footer id="footer-text"></footer>
-
-  <script type="module" src="assets/app.js"></script>
+  <footer>Paridhi Textile &middot; Textile Management System</footer>
+  <script type="module" src="js/home.js"></script>
 </body>
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inventory &middot; Paridhi Textile</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="entry.html">New Entry</a>
+    <a href="inventory.html" class="active">Inventory</a>
+  </nav>
+
+  <header>
+    <div class="brand">
+      <div>
+        <span class="pill">Inventory</span>
+        <h1>Stock Overview</h1>
+        <p>Current raw material stock, in-processing batches, and finished goods.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Summary -->
+    <section id="inv-summary" class="grid cols-3"></section>
+
+    <!-- Category Breakdown -->
+    <section class="grid cols-2">
+      <div class="card">
+        <h3>By Material Type</h3>
+        <ul id="breakdown-material" class="breakdown-list"></ul>
+      </div>
+      <div class="card">
+        <h3>By Color</h3>
+        <ul id="breakdown-color" class="breakdown-list"></ul>
+      </div>
+    </section>
+
+    <!-- Raw Material Stock -->
+    <section class="card">
+      <div class="section-heading">
+        <h2>Raw Material Stock</h2>
+        <span class="tag" id="rm-stock-count"></span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>Material</th>
+              <th>Color</th>
+              <th>Vendor</th>
+              <th>Total</th>
+              <th>Remaining</th>
+              <th>Cost</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody id="rm-stock-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Pending Dispatches -->
+    <section class="card">
+      <div class="section-heading">
+        <h2>Pending Dispatches</h2>
+        <span class="tag" id="pending-count"></span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>From</th>
+              <th>Vendor</th>
+              <th>Purpose</th>
+              <th>Length Sent</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="pending-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Finished Goods -->
+    <section class="card">
+      <div class="section-heading">
+        <h2>Finished Goods</h2>
+        <span class="tag" id="finished-count"></span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Batch</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>From Dispatch</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="finished-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>Paridhi Textile &middot; Textile Management System</footer>
+  <script type="module" src="js/inventory.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Entry &middot; Paridhi Textile</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="entry.html" class="active">New Entry</a>
+    <a href="inventory.html">Inventory</a>
+  </nav>
+
+  <header>
+    <div class="brand">
+      <div>
+        <span class="pill">New Entry</span>
+        <h1>Record Textile Entry</h1>
+        <p>Add raw materials, dispatch for processing, or record received goods.</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="raw-material">Raw Material</button>
+      <button class="tab-btn" data-tab="process-dispatch">Process Dispatch</button>
+      <button class="tab-btn" data-tab="received-entry">Received Entry</button>
+    </div>
+
+    <!-- Tab 1: Raw Material -->
+    <section class="tab-panel active" data-tab="raw-material">
+      <form id="form-raw-material" class="card">
+        <h2>Raw Material Entry</h2>
+        <p style="color:var(--ash);margin-bottom:16px;">When new textiles arrive from a supplier.</p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="rm-date">Date of Arrival</label>
+            <input type="date" id="rm-date" required />
+          </div>
+          <div class="form-group">
+            <label for="rm-length">Length (meters)</label>
+            <input type="number" id="rm-length" step="0.01" min="0.01" required placeholder="200" />
+          </div>
+          <div class="form-group">
+            <label for="rm-cost">Cost (INR)</label>
+            <input type="number" id="rm-cost" step="0.01" min="0" required placeholder="15000" />
+          </div>
+          <div class="form-group">
+            <label for="rm-material">Material Type</label>
+            <select id="rm-material" required>
+              <option value="">Select...</option>
+              <option value="Mulmul">Mulmul</option>
+              <option value="Silk">Silk</option>
+              <option value="Cotton">Cotton</option>
+              <option value="Georgette">Georgette</option>
+              <option value="Chiffon">Chiffon</option>
+              <option value="Linen">Linen</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rm-color">Color</label>
+            <input type="text" id="rm-color" required placeholder="Maroon" />
+          </div>
+          <div class="form-group">
+            <label for="rm-vendor">Vendor / Supplier</label>
+            <input type="text" id="rm-vendor" required placeholder="Sharma Textiles" />
+          </div>
+          <div class="form-group full-width">
+            <label for="rm-notes">Notes (optional)</label>
+            <textarea id="rm-notes" rows="2" placeholder="Any additional details..."></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="button primary">Record Raw Material</button>
+          <span id="rm-status"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Tab 2: Process Dispatch -->
+    <section class="tab-panel" data-tab="process-dispatch">
+      <form id="form-process-dispatch" class="card">
+        <h2>Process Dispatch</h2>
+        <p style="color:var(--ash);margin-bottom:16px;">Send raw material to a tailor or dyer for processing.</p>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="rm-select">Select Raw Material Batch</label>
+            <select id="rm-select" required>
+              <option value="">Loading...</option>
+            </select>
+          </div>
+          <div id="rm-detail-card" class="detail-preview full-width" style="display:none;"></div>
+          <div class="form-group">
+            <label for="pd-date">Dispatch Date</label>
+            <input type="date" id="pd-date" required />
+          </div>
+          <div class="form-group">
+            <label for="pd-vendor">Send to Vendor</label>
+            <input type="text" id="pd-vendor" required placeholder="Dyer Abdul" />
+          </div>
+          <div class="form-group">
+            <label for="pd-purpose">Purpose</label>
+            <select id="pd-purpose" required>
+              <option value="">Select...</option>
+              <option value="dyeing">Dyeing</option>
+              <option value="printing">Printing</option>
+              <option value="stitching">Stitching</option>
+              <option value="finishing">Finishing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pd-length">Length to Send (meters)</label>
+            <input type="number" id="pd-length" step="0.01" min="0.01" required placeholder="100" />
+          </div>
+          <div class="form-group full-width">
+            <label for="pd-notes">Notes (optional)</label>
+            <textarea id="pd-notes" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="button primary">Dispatch for Processing</button>
+          <span id="pd-status"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Tab 3: Received Entry -->
+    <section class="tab-panel" data-tab="received-entry">
+      <form id="form-received-entry" class="card">
+        <h2>Received Entry</h2>
+        <p style="color:var(--ash);margin-bottom:16px;">Record processed goods that came back.</p>
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="pd-select">Select Dispatch Batch</label>
+            <select id="pd-select" required>
+              <option value="">Loading...</option>
+            </select>
+          </div>
+          <div id="pd-detail-card" class="detail-preview full-width" style="display:none;"></div>
+          <div class="form-group">
+            <label for="re-date">Received Date</label>
+            <input type="date" id="re-date" required />
+          </div>
+          <div class="form-group">
+            <label>Output Type</label>
+            <div class="radio-group">
+              <label><input type="radio" name="output-type" value="pieces" checked /> Pieces</label>
+              <label><input type="radio" name="output-type" value="length" /> Length</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="re-quantity">Quantity</label>
+            <input type="number" id="re-quantity" step="0.01" min="0.01" required placeholder="50" />
+          </div>
+          <div class="form-group" id="re-unit-group">
+            <label for="re-unit">Unit (e.g. kurtas, dupattas)</label>
+            <input type="text" id="re-unit" placeholder="kurtas" />
+          </div>
+          <div class="form-group full-width">
+            <label for="re-description">Description</label>
+            <input type="text" id="re-description" required placeholder="Dyed maroon mulmul fabric" />
+          </div>
+          <div class="form-group full-width">
+            <label for="re-notes">Notes (optional)</label>
+            <textarea id="re-notes" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="button primary">Record Received Goods</button>
+          <span id="re-status"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>Paridhi Textile &middot; Textile Management System</footer>
+  <script type="module" src="js/entry.js"></script>
+</body>
+</html>

@@ -1,123 +1,144 @@
--- Supabase schema for Paridhi TextileOS
+-- ============================================================
+-- Paridhi Textile — Schema
+-- Run in Supabase SQL Editor (drop old tables first)
+-- ============================================================
 
-CREATE TABLE batches (
+-- Drop old tables
+DROP TABLE IF EXISTS vendors CASCADE;
+DROP TABLE IF EXISTS photos CASCADE;
+DROP TABLE IF EXISTS quality_checkpoints CASCADE;
+DROP TABLE IF EXISTS story CASCADE;
+DROP TABLE IF EXISTS timeline_entries CASCADE;
+DROP TABLE IF EXISTS stock CASCADE;
+DROP TABLE IF EXISTS batch_details CASCADE;
+DROP TABLE IF EXISTS modules CASCADE;
+DROP TABLE IF EXISTS batches CASCADE;
+
+-- Drop new tables if re-running
+DROP TABLE IF EXISTS received_entries CASCADE;
+DROP TABLE IF EXISTS process_dispatches CASCADE;
+DROP TABLE IF EXISTS raw_materials CASCADE;
+DROP TABLE IF EXISTS batch_counters CASCADE;
+
+-- ============================================================
+-- Batch counter for auto-incrementing batch numbers
+-- ============================================================
+CREATE TABLE batch_counters (
+  prefix TEXT PRIMARY KEY,
+  current_value INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO batch_counters (prefix, current_value) VALUES
+  ('PT-RM', 0),
+  ('PT-PD', 0),
+  ('PT-RE', 0);
+
+-- ============================================================
+-- Function: next_batch_number(prefix) -> 'PT-RM-0001'
+-- ============================================================
+CREATE OR REPLACE FUNCTION next_batch_number(p_prefix TEXT)
+RETURNS TEXT
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  v_next INT;
+BEGIN
+  UPDATE batch_counters
+  SET current_value = current_value + 1
+  WHERE prefix = p_prefix
+  RETURNING current_value INTO v_next;
+
+  IF v_next IS NULL THEN
+    RAISE EXCEPTION 'Unknown batch prefix: %', p_prefix;
+  END IF;
+
+  RETURN p_prefix || '-' || LPAD(v_next::TEXT, 4, '0');
+END;
+$$;
+
+-- ============================================================
+-- Point 1: Raw Materials
+-- ============================================================
+CREATE TABLE raw_materials (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id TEXT UNIQUE NOT NULL,
-  page_title TEXT NOT NULL,
-  footer TEXT,
-  summary_title TEXT NOT NULL,
-  summary_subtitle TEXT,
-  summary_description TEXT,
-  ctas JSONB DEFAULT '{}',
-  hero_stats JSONB DEFAULT '[]',
+  batch_number TEXT UNIQUE NOT NULL,
+  entry_date DATE NOT NULL,
+  length_meters NUMERIC(10,2) NOT NULL,
+  remaining_meters NUMERIC(10,2) NOT NULL,
+  cost NUMERIC(12,2) NOT NULL,
+  material_type TEXT NOT NULL,
+  color TEXT NOT NULL,
+  vendor_name TEXT NOT NULL,
+  notes TEXT,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE modules (
+-- ============================================================
+-- Point 2: Process Dispatches
+-- ============================================================
+CREATE TABLE process_dispatches (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  description TEXT,
-  sort_order INT DEFAULT 0
+  batch_number TEXT UNIQUE NOT NULL,
+  raw_material_id UUID NOT NULL REFERENCES raw_materials(id),
+  parent_batch_number TEXT NOT NULL,
+  dispatch_date DATE NOT NULL,
+  vendor_name TEXT NOT NULL,
+  purpose TEXT NOT NULL CHECK (purpose IN ('dyeing', 'printing', 'stitching', 'finishing')),
+  length_sent NUMERIC(10,2) NOT NULL,
+  status TEXT NOT NULL DEFAULT 'dispatched' CHECK (status IN ('dispatched', 'received')),
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE batch_details (
+-- ============================================================
+-- Point 3: Received Entries
+-- ============================================================
+CREATE TABLE received_entries (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  label TEXT NOT NULL,
-  value TEXT NOT NULL,
-  sort_order INT DEFAULT 0
+  batch_number TEXT UNIQUE NOT NULL,
+  process_dispatch_id UUID NOT NULL REFERENCES process_dispatches(id),
+  parent_batch_number TEXT NOT NULL,
+  received_date DATE NOT NULL,
+  output_type TEXT NOT NULL CHECK (output_type IN ('pieces', 'length')),
+  output_quantity NUMERIC(10,2) NOT NULL,
+  output_unit TEXT NOT NULL,
+  description TEXT NOT NULL,
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE stock (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  tag TEXT,
-  stats JSONB DEFAULT '[]',
-  conversion JSONB DEFAULT '{}'
-);
+-- ============================================================
+-- RLS Policies
+-- ============================================================
+ALTER TABLE batch_counters ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon_read_counters" ON batch_counters FOR SELECT USING (true);
+CREATE POLICY "anon_update_counters" ON batch_counters FOR UPDATE USING (true) WITH CHECK (true);
 
-CREATE TABLE timeline_entries (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  code TEXT NOT NULL,
-  tone TEXT DEFAULT 'primary',
-  title TEXT NOT NULL,
-  points JSONB DEFAULT '[]',
-  sort_order INT DEFAULT 0
-);
+ALTER TABLE raw_materials ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon_select_rm" ON raw_materials FOR SELECT USING (true);
+CREATE POLICY "anon_insert_rm" ON raw_materials FOR INSERT WITH CHECK (true);
+CREATE POLICY "anon_update_rm" ON raw_materials FOR UPDATE USING (true) WITH CHECK (true);
 
-CREATE TABLE story (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  pill TEXT,
-  title TEXT NOT NULL,
-  overview TEXT,
-  metrics JSONB DEFAULT '[]',
-  highlights_title TEXT,
-  highlights JSONB DEFAULT '[]'
-);
+ALTER TABLE process_dispatches ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon_select_pd" ON process_dispatches FOR SELECT USING (true);
+CREATE POLICY "anon_insert_pd" ON process_dispatches FOR INSERT WITH CHECK (true);
+CREATE POLICY "anon_update_pd" ON process_dispatches FOR UPDATE USING (true) WITH CHECK (true);
 
-CREATE TABLE quality_checkpoints (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  stage TEXT NOT NULL,
-  status TEXT NOT NULL,
-  defects TEXT,
-  action TEXT,
-  sort_order INT DEFAULT 0
-);
+ALTER TABLE received_entries ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon_select_re" ON received_entries FOR SELECT USING (true);
+CREATE POLICY "anon_insert_re" ON received_entries FOR INSERT WITH CHECK (true);
+CREATE POLICY "anon_update_re" ON received_entries FOR UPDATE USING (true) WITH CHECK (true);
 
-CREATE TABLE photos (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  caption TEXT,
-  meta JSONB DEFAULT '[]',
-  sort_order INT DEFAULT 0
-);
+-- ============================================================
+-- Grant RPC access
+-- ============================================================
+GRANT EXECUTE ON FUNCTION next_batch_number(TEXT) TO anon;
 
-CREATE TABLE vendors (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  batch_id UUID REFERENCES batches(id) ON DELETE CASCADE,
-  vendor TEXT NOT NULL,
-  work TEXT,
-  rate TEXT,
-  due_date TEXT,
-  payment_status TEXT,
-  sort_order INT DEFAULT 0
-);
-
--- Enable RLS on all tables
-ALTER TABLE batches ENABLE ROW LEVEL SECURITY;
-ALTER TABLE modules ENABLE ROW LEVEL SECURITY;
-ALTER TABLE batch_details ENABLE ROW LEVEL SECURITY;
-ALTER TABLE stock ENABLE ROW LEVEL SECURITY;
-ALTER TABLE timeline_entries ENABLE ROW LEVEL SECURITY;
-ALTER TABLE story ENABLE ROW LEVEL SECURITY;
-ALTER TABLE quality_checkpoints ENABLE ROW LEVEL SECURITY;
-ALTER TABLE photos ENABLE ROW LEVEL SECURITY;
-ALTER TABLE vendors ENABLE ROW LEVEL SECURITY;
-
--- Allow anonymous read access
-CREATE POLICY "Allow anonymous read" ON batches FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON modules FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON batch_details FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON stock FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON timeline_entries FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON story FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON quality_checkpoints FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON photos FOR SELECT USING (true);
-CREATE POLICY "Allow anonymous read" ON vendors FOR SELECT USING (true);
-
--- Allow anonymous inserts
-CREATE POLICY "Allow anonymous insert" ON batches FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON modules FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON batch_details FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON stock FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON timeline_entries FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON story FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON quality_checkpoints FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON photos FOR INSERT WITH CHECK (true);
-CREATE POLICY "Allow anonymous insert" ON vendors FOR INSERT WITH CHECK (true);
+-- ============================================================
+-- Indexes
+-- ============================================================
+CREATE INDEX idx_rm_material_type ON raw_materials(material_type);
+CREATE INDEX idx_rm_color ON raw_materials(color);
+CREATE INDEX idx_pd_raw_material_id ON process_dispatches(raw_material_id);
+CREATE INDEX idx_pd_status ON process_dispatches(status);
+CREATE INDEX idx_re_process_dispatch_id ON received_entries(process_dispatch_id);
