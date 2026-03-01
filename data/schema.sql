@@ -81,11 +81,17 @@ CREATE TABLE process_dispatches (
   parent_batch_number TEXT NOT NULL,
   dispatch_date DATE NOT NULL,
   vendor_name TEXT NOT NULL,
-  purpose TEXT NOT NULL CHECK (purpose IN ('dyeing', 'printing', 'stitching', 'finishing')),
+  purpose TEXT NOT NULL CHECK (purpose IN ('dyeing', 'printing', 'stitching', 'finishing',
+                                           'karigar', 'dyer', 'stitch', 'false')),
   material_type TEXT NOT NULL,
   unit_type TEXT NOT NULL CHECK (unit_type IN ('meters', 'units')),
   quantity_sent NUMERIC(10,2) NOT NULL,
   status TEXT NOT NULL DEFAULT 'dispatched' CHECK (status IN ('dispatched', 'received')),
+  dispatch_type TEXT NOT NULL DEFAULT 'legacy'
+    CHECK (dispatch_type IN ('karigar', 'dyer', 'stitch', 'false', 'legacy')),
+  dispatch_group_id UUID,
+  design_number TEXT,
+  pieces_expected NUMERIC(10,2),
   notes TEXT,
   created_at TIMESTAMPTZ DEFAULT now()
 );
@@ -150,4 +156,6 @@ CREATE INDEX idx_rmi_raw_material_id ON raw_material_items(raw_material_id);
 CREATE INDEX idx_rmi_material_type ON raw_material_items(material_type);
 CREATE INDEX idx_pd_raw_material_id ON process_dispatches(raw_material_id);
 CREATE INDEX idx_pd_status ON process_dispatches(status);
+CREATE INDEX idx_pd_dispatch_group_id ON process_dispatches(dispatch_group_id);
+CREATE INDEX idx_pd_dispatch_type ON process_dispatches(dispatch_type);
 CREATE INDEX idx_re_process_dispatch_id ON received_entries(process_dispatch_id);

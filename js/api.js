@@ -65,11 +65,19 @@ export async function updateDispatchStatus(id, status) {
 }
 
 export async function markDispatchReceived(id) {
+  return updateDispatchStatus(id, "received");
+}
+
+export async function insertProcessDispatchBatch(records) {
+  return supabase.from("process_dispatches").insert(records).select();
+}
+
+export async function fetchDispatchGroup(groupId) {
   return supabase
     .from("process_dispatches")
-    .update({ status: "received" })
-    .eq("id", id);
-    return updateDispatchStatus(id, "received");
+    .select("*")
+    .eq("dispatch_group_id", groupId)
+    .order("created_at", { ascending: true });
 }
 
 // === Received Entries (Point 3) ===

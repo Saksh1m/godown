@@ -42,7 +42,7 @@ function renderSummary(rm, pd, re) {
     </div>
     <div class="card">
       <div class="stat"><span>Finished Goods Entries</span><strong>${totalFinished}</strong></div>
-      ${totalProcessedLength > 0 ? `<p style="margin-top:8px;">${formatMeters(totalProcessedLength)} processed fabric</p>` : ""}
+      ${totalFinished > 0 ? `<p style="margin-top:8px;">${totalFinished} batch${totalFinished !== 1 ? "es" : ""} received</p>` : ""}
     </div>
   `;
 }
@@ -132,7 +132,7 @@ function renderPendingDispatches(pd) {
       <td><span class="batch-pill rm">${d.parent_batch_number}</span></td>
       <td>${d.material_type}</td>
       <td>${d.vendor_name}</td>
-      <td>${d.purpose}</td>
+      <td>${d.dispatch_type && d.dispatch_type !== "legacy" ? d.dispatch_type.toUpperCase() : d.purpose}</td>
       <td>${formatQuantity(d.quantity_sent, d.unit_type)}</td>
       <td>${formatDate(d.dispatch_date)}</td>
       <td><button class="button secondary delete-btn" data-type="dispatch" data-id="${d.id}">Delete</button></td>

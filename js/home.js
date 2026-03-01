@@ -68,7 +68,7 @@ function renderProductionHistory(rm, pd, re) {
       type: "Dispatch",
       typeClass: "pd",
       date: p.dispatch_date,
-      details: `${p.material_type} &middot; ${formatQuantity(p.quantity_sent, p.unit_type)} &middot; ${p.vendor_name}`,
+      details: `${p.dispatch_type && p.dispatch_type !== "legacy" ? p.dispatch_type.toUpperCase() + " | " : ""}${p.material_type} &middot; ${formatQuantity(p.quantity_sent, p.unit_type)} &middot; ${p.vendor_name}${p.design_number ? " [" + p.design_number + "]" : ""}`,
       parent: p.parent_batch_number,
       status: p.status,
       statusClass: p.status,
@@ -134,7 +134,7 @@ function renderLineage(rm, pd, re) {
 
           return `<div class="lineage-child">
             <span class="batch-pill pd">${d.batch_number}</span>
-            ${d.material_type} (${formatQuantity(d.quantity_sent, d.unit_type)}) to ${d.vendor_name} for ${d.purpose}
+            ${d.material_type} (${formatQuantity(d.quantity_sent, d.unit_type)}) to ${d.vendor_name} for ${d.dispatch_type && d.dispatch_type !== "legacy" ? d.dispatch_type : d.purpose}
             <span class="status-badge ${d.status}">${d.status}</span>
             ${receivedHtml}
           </div>`;
