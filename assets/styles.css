@@ -595,3 +595,14 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.material-row {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr 0.8fr auto;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.delete-btn {
+  padding: 6px 10px;
+  font-size: 0.8rem;
+}

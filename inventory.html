@@ -57,8 +57,9 @@
               <th>Vendor</th>
               <th>Total</th>
               <th>Remaining</th>
-              <th>Cost</th>
+              <th>Rate</th>
               <th>Stock</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="rm-stock-body"></tbody>
@@ -78,10 +79,12 @@
             <tr>
               <th>Batch</th>
               <th>From</th>
+              <th>Material</th>
               <th>Vendor</th>
               <th>Purpose</th>
-              <th>Length Sent</th>
+              <th>Quantity Sent</th>
               <th>Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="pending-body"></tbody>
@@ -95,6 +98,7 @@
         <h2>Finished Goods</h2>
         <span class="tag" id="finished-count"></span>
       </div>
+      <p style="color:var(--ash);margin-bottom:8px;">Delete protection password: <strong>dataentry</strong></p>
       <div style="overflow-x:auto;">
         <table>
           <thead>
@@ -102,9 +106,9 @@
               <th>Batch</th>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Unit</th>
               <th>From Dispatch</th>
               <th>Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="finished-body"></tbody>

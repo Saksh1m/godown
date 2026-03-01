@@ -1,5 +1,9 @@
 import { fetchFullLineage } from "./api.js";
-import { $, formatDate, formatMeters, formatCurrency } from "./utils.js";
+import { $, formatDate, formatCurrency } from "./utils.js";
+
+function formatQuantity(quantity, unitType) {
+  return `${parseFloat(quantity).toLocaleString("en-IN")} ${unitType === "units" ? "units" : "m"}`;
+}
 
 async function init() {
   const { rawMaterials, processDispatches, receivedEntries } = await fetchFullLineage();
@@ -12,14 +16,12 @@ async function init() {
 
 function renderHeroStats(rm, pd, re) {
   const container = $("#hero-stats");
-  const totalMeters = rm.reduce((s, r) => s + parseFloat(r.length_meters), 0);
+  const totalMeters = rm.flatMap((r) => r.material_items || []).filter((i) => i.unit_type === "meters").reduce((s, i) => s + parseFloat(i.quantity), 0);
   const activeDispatches = pd.filter((d) => d.status === "dispatched").length;
-  const totalPieces = re
-    .filter((r) => r.output_type === "pieces")
-    .reduce((s, r) => s + parseFloat(r.output_quantity), 0);
+  const totalPieces = re.filter((r) => r.output_type === "pieces").reduce((s, r) => s + parseFloat(r.output_quantity), 0);
 
   container.innerHTML = `
-    <div class="stat"><span>Total Raw Material</span><strong>${formatMeters(totalMeters)}</strong></div>
+    <div class="stat"><span>Total Raw Material</span><strong>${totalMeters.toLocaleString("en-IN")} m</strong></div>
     <div class="stat" style="margin-top:16px;"><span>Active Dispatches</span><strong>${activeDispatches}</strong></div>
     <div class="stat" style="margin-top:16px;"><span>Finished Pieces</span><strong>${Math.floor(totalPieces)}</strong></div>
   `;
@@ -27,14 +29,14 @@ function renderHeroStats(rm, pd, re) {
 
 function renderSummaryCards(rm, pd, re) {
   const container = $("#summary-cards");
-  const totalRawCost = rm.reduce((s, r) => s + parseFloat(r.cost), 0);
-  const remainingMeters = rm.reduce((s, r) => s + parseFloat(r.remaining_meters), 0);
+  const totalRawRate = rm.reduce((s, r) => s + parseFloat(r.rate), 0);
+  const remainingMeters = rm.flatMap((r) => r.material_items || []).filter((i) => i.unit_type === "meters").reduce((s, i) => s + parseFloat(i.remaining_quantity), 0);
   const completedDispatches = pd.filter((d) => d.status === "received").length;
 
   container.innerHTML = `
     <div class="card">
       <div class="stat"><span>Raw Material Batches</span><strong>${rm.length}</strong></div>
-      <p style="margin-top:8px;">${formatMeters(remainingMeters)} available &middot; ${formatCurrency(totalRawCost)} invested</p>
+       <p style="margin-top:8px;">${remainingMeters.toLocaleString("en-IN")} m available &middot; ${formatCurrency(totalRawRate)} rate value</p>
     </div>
     <div class="card">
       <div class="stat"><span>Process Dispatches</span><strong>${pd.length}</strong></div>
@@ -57,16 +59,16 @@ function renderProductionHistory(rm, pd, re) {
       type: "Raw Material",
       typeClass: "rm",
       date: r.entry_date,
-      details: `${r.color} ${r.material_type} &middot; ${formatMeters(r.length_meters)} &middot; ${r.vendor_name}`,
+      details: `${r.color} &middot; ${(r.material_items || []).map((i) => `${i.material_type} (${formatQuantity(i.quantity, i.unit_type)})`).join(", ")} &middot; ${r.vendor_name}`,
       parent: "—",
-      status: `${formatMeters(r.remaining_meters)} remaining`,
+      status: `${(r.material_items || []).length} material types`,
     })),
     ...pd.map((p) => ({
       batch: p.batch_number,
       type: "Dispatch",
       typeClass: "pd",
       date: p.dispatch_date,
-      details: `${p.purpose} &middot; ${formatMeters(p.length_sent)} &middot; ${p.vendor_name}`,
+      details: `${p.material_type} &middot; ${formatQuantity(p.quantity_sent, p.unit_type)} &middot; ${p.vendor_name}`,
       parent: p.parent_batch_number,
       status: p.status,
       statusClass: p.status,
@@ -132,7 +134,7 @@ function renderLineage(rm, pd, re) {
 
           return `<div class="lineage-child">
             <span class="batch-pill pd">${d.batch_number}</span>
-            ${formatMeters(d.length_sent)} to ${d.vendor_name} for ${d.purpose}
+            ${d.material_type} (${formatQuantity(d.quantity_sent, d.unit_type)}) to ${d.vendor_name} for ${d.purpose}
             <span class="status-badge ${d.status}">${d.status}</span>
             ${receivedHtml}
           </div>`;
@@ -140,7 +142,7 @@ function renderLineage(rm, pd, re) {
         .join("");
 
       return `<div class="lineage-group">
-        <h4><span class="batch-pill rm">${raw.batch_number}</span> ${raw.color} ${raw.material_type} &middot; ${formatMeters(raw.length_meters)} from ${raw.vendor_name}</h4>
+        <h4><span class="batch-pill rm">${raw.batch_number}</span> ${raw.color} &middot; ${(raw.material_items || []).map((i) => `${i.material_type} (${formatQuantity(i.quantity, i.unit_type)})`).join(", ")} from ${raw.vendor_name}</h4>
         ${dispatches.length > 0 ? `<div class="lineage-children">${dispatchHtml}</div>` : '<p style="color:var(--ash);margin-top:8px;">No dispatches yet</p>'}
       </div>`;
     })

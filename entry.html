@@ -43,24 +43,8 @@
             <input type="date" id="rm-date" required />
           </div>
           <div class="form-group">
-            <label for="rm-length">Length (meters)</label>
-            <input type="number" id="rm-length" step="0.01" min="0.01" required placeholder="200" />
-          </div>
-          <div class="form-group">
-            <label for="rm-cost">Cost (INR)</label>
-            <input type="number" id="rm-cost" step="0.01" min="0" required placeholder="15000" />
-          </div>
-          <div class="form-group">
-            <label for="rm-material">Material Type</label>
-            <select id="rm-material" required>
-              <option value="">Select...</option>
-              <option value="Mulmul">Mulmul</option>
-              <option value="Silk">Silk</option>
-              <option value="Cotton">Cotton</option>
-              <option value="Georgette">Georgette</option>
-              <option value="Chiffon">Chiffon</option>
-              <option value="Linen">Linen</option>
-            </select>
+          <label for="rm-rate">Rate (INR)</label>
+            <input type="number" id="rm-rate" step="0.01" min="0" required placeholder="15000" />  
           </div>
           <div class="form-group">
             <label for="rm-color">Color</label>
@@ -70,6 +54,13 @@
             <label for="rm-vendor">Vendor / Supplier</label>
             <input type="text" id="rm-vendor" required placeholder="Sharma Textiles" />
           </div>
+
+          <div class="form-group full-width">
+            <label>Material Entries (add one or many)</label>
+            <div id="rm-material-rows"></div>
+            <button type="button" class="button secondary" id="add-material-row" style="width:max-content;">+ Add Material Type</button>
+          </div>
+
           <div class="form-group full-width">
             <label for="rm-notes">Notes (optional)</label>
             <textarea id="rm-notes" rows="2" placeholder="Any additional details..."></textarea>
@@ -94,6 +85,12 @@
               <option value="">Loading...</option>
             </select>
           </div>
+          <div class="form-group full-width">
+            <label for="rm-material-item">Select Material Type</label>
+            <select id="rm-material-item" required>
+              <option value="">Select batch first...</option>
+            </select>
+          </div>
           <div id="rm-detail-card" class="detail-preview full-width" style="display:none;"></div>
           <div class="form-group">
             <label for="pd-date">Dispatch Date</label>
@@ -114,8 +111,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="pd-length">Length to Send (meters)</label>
-            <input type="number" id="pd-length" step="0.01" min="0.01" required placeholder="100" />
+            <label for="pd-quantity" id="pd-quantity-label">Quantity to Send</label>
+            <input type="number" id="pd-quantity" step="0.01" min="0.01" required placeholder="100" />
           </div>
           <div class="form-group full-width">
             <label for="pd-notes">Notes (optional)</label>
